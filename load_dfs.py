@@ -25,6 +25,20 @@ def load_openmeteo(lat='56.13N',lon='10.19E',elevation='27m'):
 
     return openmeteodf
 
+def load_consumption(zone='DK1'):
+    """
+    read the csv and return df with one zone selected (DK1 default)
+    """
+    consumptiondf = pd.read_csv('./data/ConsumptionCoverageNationalDecl.csv',delimiter=';',decimal=',')
+
+    consumptiondf['HourDK'] = pd.to_datetime(consumptiondf['HourDK'],format='%Y-%m-%d %H:%M:%S')
+    consumptiondf['HourUTC'] = pd.to_datetime(consumptiondf['HourUTC'],format='%Y-%d-%m %H:%M:%S')
+
+    Zonalconsumptiondf = consumptiondf[consumptiondf['ConnectedArea']==zone]
+    Zonalconsumptiondf.drop('ConnectedArea', axis=1, inplace=True)
+
+    return Zonalconsumptiondf
+
 """TODO (optional to make it more general later)
 ------------------
 - check if both dfs hourly
