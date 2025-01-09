@@ -32,10 +32,11 @@ def load_consumption(zone='DK1'):
     consumptiondf = pd.read_csv('./data/ConsumptionCoverageNationalDecl.csv',delimiter=';',decimal=',')
 
     consumptiondf['HourDK'] = pd.to_datetime(consumptiondf['HourDK'],format='%Y-%m-%d %H:%M:%S')
-    consumptiondf['HourUTC'] = pd.to_datetime(consumptiondf['HourUTC'],format='%Y-%d-%m %H:%M:%S')
+    consumptiondf['HourUTC'] = pd.to_datetime(consumptiondf['HourUTC'],format='%Y-%m-%d %H:%M:%S')
 
     Zonalconsumptiondf = consumptiondf[consumptiondf['ConnectedArea']==zone]
     Zonalconsumptiondf.drop('ConnectedArea', axis=1, inplace=True)
+    Zonalconsumptiondf.drop('HourUTC', axis=1, inplace=True)
 
     return Zonalconsumptiondf
 
