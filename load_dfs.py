@@ -12,15 +12,15 @@ def load_spotprices(zone='DK1'):
     spotPricesdf['HourUTC'] = pd.to_datetime(spotPricesdf['HourUTC'],format='%Y-%m-%d %H:%M:%S')
 
     DK1spotPricesdf = spotPricesdf[spotPricesdf['PriceArea']=='DK1']
-    DK1spotPricesdf.drop('PriceArea', axis=1).head()
+    DK1spotPricesdf.drop('PriceArea', axis=1, inplace=True)
 
     return DK1spotPricesdf
 
-def load_openmeteo(lat='56.13N',lon='10.19E'):
+def load_openmeteo(lat='56.13N',lon='10.19E',elevation='27m'):
     """
     read the openmeteo csv, with input lat and lon and return df
     """
-    openmeteodf=pd.read_csv(f'./data/open-meteo-{lat}{lon}27m.csv',skiprows=3)
+    openmeteodf=pd.read_csv(f'./data/open-meteo-{lat}{lon}{elevation}_all.csv',skiprows=3)
     openmeteodf['time'] = pd.to_datetime(openmeteodf['time'],format='%Y-%m-%dT%H:%M')
 
     return openmeteodf
