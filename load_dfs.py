@@ -12,7 +12,7 @@ def load_spotprices(zone='DK1'):
     spotPricesdf['HourUTC'] = pd.to_datetime(spotPricesdf['HourUTC'],format='%Y-%m-%d %H:%M:%S')
 
     DK1spotPricesdf = spotPricesdf[spotPricesdf['PriceArea']=='DK1']
-    DK1spotPricesdf.drop('PriceArea', axis=1, inplace=True)
+    DK1spotPricesdf = DK1spotPricesdf.drop('PriceArea', axis=1, inplace=False)
 
     return DK1spotPricesdf
 
@@ -35,8 +35,8 @@ def load_consumption(zone='DK1'):
     consumptiondf['HourUTC'] = pd.to_datetime(consumptiondf['HourUTC'],format='%Y-%m-%d %H:%M:%S')
 
     Zonalconsumptiondf = consumptiondf[consumptiondf['ConnectedArea']==zone]
-    Zonalconsumptiondf.drop('ConnectedArea', axis=1, inplace=True)
-    Zonalconsumptiondf.drop('HourUTC', axis=1, inplace=True)
+    Zonalconsumptiondf = Zonalconsumptiondf.drop('ConnectedArea', axis=1, inplace=False)
+    Zonalconsumptiondf = Zonalconsumptiondf.drop('HourUTC', axis=1, inplace=False)
 
     return Zonalconsumptiondf
 
